@@ -29,18 +29,18 @@ Contoh kasus uji disertakan untuk mendemonstrasikan fungsionalitas login pada ap
 
 ## Cara Menjalankan Test
 
-1. Clone repositori:
+1. **Clone repositori** ke komputer Anda:
+   ```bash
+   git clone https://github.com/bryan-nathan-c/cucumber-selenium-gradle-framework.git
+   cd cucumber-selenium-gradle-framework
 
-```bash
-git clone https://github.com/username/cucumber-selenium-gradle-framework.git
-cd cucumber-selenium-gradle-framework
-
-2. Jalankan test menggunakan Gradle:
-
+3. Jalankan test menggunakan Gradle:
 ./gradlew test
 
-3. Test akan dijalankan otomatis, dan report dibuat otomatis di:
+4. Cek hasil laporan test:
+Setelah test selesai, laporan otomatis dibuat di:
 build/reports/tests/test/index.html
+Buka file index.html menggunakan browser untuk melihat detail hasil test.
 
 ## Contoh Kasus Uji
 
