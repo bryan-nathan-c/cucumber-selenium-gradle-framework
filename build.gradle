@@ -1,0 +1,36 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.example'
+version = '1.0-SNAPSHOT'
+sourceCompatibility = '17'
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    cucumberVersion = '7.27.2'      // bisa disesuaikan versi terbaru
+    seleniumVersion = '4.35.0'
+    webDriverManagerVersion = '6.3.1'
+    junitVersion = '4.13.2'
+}
+
+dependencies {
+    // test/runtime
+    testImplementation "junit:junit:${junitVersion}"
+    testImplementation "io.cucumber:cucumber-java:${cucumberVersion}"
+    testImplementation "io.cucumber:cucumber-junit:${cucumberVersion}"
+
+    // selenium + driver manager
+    implementation "org.seleniumhq.selenium:selenium-java:${seleniumVersion}"
+    implementation "io.github.bonigarcia:webdrivermanager:${webDriverManagerVersion}"
+}
+
+test {
+    useJUnit()   // JUnit 4 runner untuk Cucumber
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
