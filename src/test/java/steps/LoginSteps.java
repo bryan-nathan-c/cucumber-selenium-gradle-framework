@@ -11,8 +11,8 @@ import static org.junit.Assert.assertTrue;
 
 public class LoginSteps {
 
-    WebDriver driver;
-    LoginPage loginPage;
+    private WebDriver driver;
+    private LoginPage loginPage;
 
     @Before
     public void setUp() {
@@ -28,29 +28,29 @@ public class LoginSteps {
     }
 
     @Given("user is on the SauceDemo login page")
-    public void user_is_on_the_sauce_demo_login_page() {
+    public void userIsOnTheSauceDemoLoginPage() {
         driver.get("https://www.saucedemo.com/");
         loginPage = new LoginPage(driver);
     }
 
     @When("username {string} and password {string} are entered")
-    public void username_and_password_are_entered(String username, String password) {
+    public void usernameAndPasswordAreEntered(String username, String password) {
         loginPage.enterUsername(username);
         loginPage.enterPassword(password);
     }
 
     @When("the login button is clicked")
-    public void the_login_button_is_clicked() {
+    public void theLoginButtonIsClicked() {
         loginPage.clickLogin();
     }
 
     @Then("user should be redirected to the Products page")
-    public void user_should_be_redirected_to_the_products_page() {
+    public void userShouldBeRedirectedToTheProductsPage() {
         assertTrue(driver.getCurrentUrl().contains("inventory.html"));
     }
 
     @Then("an error message {string} should be displayed")
-    public void an_error_message_should_be_displayed(String expectedError) {
+    public void anErrorMessageShouldBeDisplayed(String expectedError) {
         String actualError = loginPage.getErrorText();
         assertTrue(actualError.contains(expectedError));
     }
