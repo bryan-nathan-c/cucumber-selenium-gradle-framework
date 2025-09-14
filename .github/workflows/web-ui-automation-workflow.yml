@@ -28,11 +28,14 @@ jobs:
     - name: Setup Chrome
       uses: browser-actions/setup-chrome@v1.7.2
       
-    # setup chromedriver
-    - name: Setup ChromeDriver
-      uses: nanasess/setup-chromedriver@v2
-      with:
-        chromedriver-version: 'latest'
+    # setup chromedriver (manual install)
+    - name: Setup ChromeDriver Manual
+      run: |
+        CHROME_VERSION=$(google-chrome --version | awk '{print $3}' | cut -d'.' -f1-3)
+        wget -O /tmp/chromedriver.zip "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_${CHROME_VERSION%.*}/chromedriver_linux64.zip" || \
+        wget -O /tmp/chromedriver.zip "https://chromedriver.storage.googleapis.com/114.0.5735.90/chromedriver_linux64.zip"
+        sudo unzip /tmp/chromedriver.zip -d /usr/local/bin/
+        sudo chmod +x /usr/local/bin/chromedriver
     
     # setup gradle 
     - name: Make gradlew executable
