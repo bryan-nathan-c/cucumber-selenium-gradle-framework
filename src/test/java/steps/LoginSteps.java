@@ -1,12 +1,9 @@
 package steps;
 
-import io.cucumber.java.After;
-import io.cucumber.java.Before;
 import io.cucumber.java.en.*;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import com.nathan.pages.LoginPage;
+import com.nathan.steps.Hooks;
 
 import static org.junit.Assert.assertTrue;
 
@@ -15,30 +12,13 @@ public class LoginSteps {
     private WebDriver driver;
     private LoginPage loginPage;
 
-    @Before
-    public void setUp() {
-        // Add ChromeOptions for GitHub Actions compatibility
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless");
-        options.addArguments("--no-sandbox");
-        options.addArguments("--disable-dev-shm-usage");
-        options.addArguments("--disable-gpu");
-        options.addArguments("--window-size=1920,1080");
-
-        driver = new ChromeDriver(options);
-        // Remove maximize() for headless mode
-        // driver.manage().window().maximize();
-    }
-
-    @After
-    public void tearDown() {
-        if (driver != null) {
-            driver.quit();
-        }
-    }
+    // Remove @Before and @After - let Hooks.java handle WebDriver setup
+    // This prevents duplicate WebDriver instances
 
     @Given("user is on the SauceDemo login page")
     public void userIsOnTheSauceDemoLoginPage() {
+        // Use driver from Hooks.java
+        driver = Hooks.driver;
         driver.get("https://www.saucedemo.com/");
         loginPage = new LoginPage(driver);
     }
