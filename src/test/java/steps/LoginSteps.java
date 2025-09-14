@@ -3,7 +3,8 @@ package steps;
 import io.cucumber.java.en.*;
 import org.openqa.selenium.WebDriver;
 import com.nathan.pages.LoginPage;
-import com.nathan.steps.Hooks;
+import steps.Hooks;
+
 
 import static org.junit.Assert.assertTrue;
 
