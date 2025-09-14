@@ -24,7 +24,7 @@ dependencies {
     testImplementation "io.cucumber:cucumber-junit:${cucumberVersion}"
 
     // selenium + driver manager
-    implementation "org.seleniumhq.selenium:selenium-java:${seleniumVersion}"
+    testImplementation 'org.seleniumhq.selenium:selenium-java:4.25.0'
     implementation "io.github.bonigarcia:webdrivermanager:${webDriverManagerVersion}"
 }
 
