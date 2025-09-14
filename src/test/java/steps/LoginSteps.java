@@ -9,16 +9,18 @@ import static org.junit.Assert.assertTrue;
 
 public class LoginSteps {
 
-    private WebDriver driver;
     private LoginPage loginPage;
-
-    // Remove @Before and @After - let Hooks.java handle WebDriver setup
-    // This prevents duplicate WebDriver instances
 
     @Given("user is on the SauceDemo login page")
     public void userIsOnTheSauceDemoLoginPage() {
-        // Use driver from Hooks.java
-        driver = Hooks.driver;
+        // Ensure driver is initialized from Hooks
+        WebDriver driver = Hooks.driver;
+
+        // Add null check and error handling
+        if (driver == null) {
+            throw new RuntimeException("WebDriver not initialized by Hooks. Check @Before method execution order.");
+        }
+
         driver.get("https://www.saucedemo.com/");
         loginPage = new LoginPage(driver);
     }
@@ -36,7 +38,7 @@ public class LoginSteps {
 
     @Then("user should be redirected to the Products page")
     public void userShouldBeRedirectedToTheProductsPage() {
-        assertTrue(driver.getCurrentUrl().contains("inventory.html"));
+        assertTrue(Hooks.driver.getCurrentUrl().contains("inventory.html"));
     }
 
     @Then("an error message {string} should be displayed")

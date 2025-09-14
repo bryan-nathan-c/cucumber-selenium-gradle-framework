@@ -13,9 +13,9 @@ import java.nio.file.Path;
 public class Hooks {
     public static WebDriver driver;
 
-    @Before
+    @Before(order = 0)  // Ensure this runs first before any other @Before methods
     public void setUp(){
-        // Remove WebDriverManager - use system ChromeDriver
+        System.out.println("Setting up WebDriver...");
 
         // Configure Chrome for headless CI/CD environment
         ChromeOptions options = new ChromeOptions();
@@ -36,10 +36,13 @@ public class Hooks {
         }
 
         driver = new ChromeDriver(options);
+        System.out.println("WebDriver initialized successfully");
     }
 
-    @After
+    @After(order = 1000)  // Ensure this runs last after all other @After methods
     public void tearDown(Scenario scenario){
+        System.out.println("Tearing down WebDriver...");
+
         if (scenario.isFailed()){
             try {
                 byte[] screenshot = ((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES);
@@ -47,10 +50,16 @@ public class Hooks {
                 // Save to build folder for GitHub Actions artifacts
                 Files.createDirectories(Path.of("build/screenshots"));
                 Files.write(Path.of("build/screenshots/" + System.currentTimeMillis() + ".png"), screenshot);
+                System.out.println("Screenshot saved for failed scenario");
             } catch (Exception e){
                 System.out.println("Screenshot failed: " + e.getMessage());
             }
         }
-        if (driver != null) driver.quit();
+
+        if (driver != null) {
+            driver.quit();
+            driver = null;
+            System.out.println("WebDriver closed successfully");
+        }
     }
 }
