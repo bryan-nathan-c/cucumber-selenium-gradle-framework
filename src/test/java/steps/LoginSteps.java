@@ -5,6 +5,7 @@ import io.cucumber.java.Before;
 import io.cucumber.java.en.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import com.nathan.pages.LoginPage;
 
 import static org.junit.Assert.assertTrue;
@@ -16,8 +17,17 @@ public class LoginSteps {
 
     @Before
     public void setUp() {
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
+        // Add ChromeOptions for GitHub Actions compatibility
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--disable-gpu");
+        options.addArguments("--window-size=1920,1080");
+
+        driver = new ChromeDriver(options);
+        // Remove maximize() for headless mode
+        // driver.manage().window().maximize();
     }
 
     @After
