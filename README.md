@@ -1,48 +1,63 @@
-# Cucumber Selenium Gradle Framework
+Cucumber Selenium + API Gradle Framework
+Deskripsi
 
-## Deskripsi
-Framework ini digunakan untuk menguji aplikasi web secara otomatis menggunakan **Cucumber**, **Selenium WebDriver**, **Java**, dan **Gradle**.  
-Framework menerapkan **Page Object Model (POM)** untuk memisahkan logika halaman dari langkah pengujian (step definitions).  
-Contoh kasus uji disertakan untuk mendemonstrasikan fungsionalitas login pada aplikasi web demo (misal: SauceDemo).
+Framework ini digunakan untuk menguji aplikasi web dan API secara otomatis menggunakan:
 
----
+Cucumber untuk BDD
 
-## Fitur
-- Implementasi **BDD** dengan **Cucumber**.
-- Struktur **Page Object Model (POM)**.
-- Mendukung **JUnit** dan Gradle untuk eksekusi test.
-- Report otomatis dari Gradle / Cucumber.
-- Contoh kasus uji login:  
-  - Login berhasil dengan kredensial valid  
-  - Login gagal dengan kredensial invalid  
-  - Username kosong  
-  - Password kosong
+Selenium WebDriver untuk uji UI
 
----
+RestAssured untuk uji API
 
-## Persiapan Project
-1. Pastikan **Java JDK 17+** terinstall.  
-2. Pastikan **Gradle 8+** terinstall atau gunakan wrapper (`./gradlew`).  
-3. Pastikan browser Chrome terinstall. WebDriver otomatis diatur oleh **WebDriverManager**.
+Java & Gradle sebagai test runner
 
----
+Struktur framework menerapkan Page Object Model (POM) untuk UI test, serta skenario API ditulis dalam file .feature terpisah.
 
-## Cara Menjalankan Test
+Fitur
 
-1. **Clone repositori** ke komputer Anda:
-` git clone https://github.com/bryan-nathan-c/cucumber-selenium-gradle-framework.git
-cd cucumber-selenium-gradle-framework `
+Implementasi BDD dengan Cucumber.
+
+UI Automation dengan Selenium (contoh: SauceDemo login).
+
+API Automation dengan RestAssured (contoh: GET user list dari ReqRes API).
+
+Struktur Page Object Model (POM) untuk UI.
+
+Mendukung JUnit dan Gradle untuk eksekusi test.
+
+Report otomatis dari Gradle / Cucumber (dapat dikombinasikan dengan Allure).
+
+Persiapan Project
+
+Pastikan Java JDK 17+ terinstall.
+
+Pastikan Gradle 8+ terinstall atau gunakan wrapper (./gradlew).
+
+Pastikan browser Chrome terinstall (WebDriver otomatis diatur oleh WebDriverManager).
+
+Untuk API test dengan ReqRes, gunakan API key gratis:
+
+x-api-key: reqres-free-v1
+
+Cara Menjalankan Test
+
+Clone repositori ke komputer Anda:
+
+git clone https://github.com/bryan-nathan-c/cucumber-selenium-gradle-framework.git
+cd cucumber-selenium-gradle-framework
 
 
-2. Jalankan test menggunakan Gradle:
-`./gradlew test`
+Jalankan test menggunakan Gradle:
 
-3. Setelah test selesai, laporan otomatis akan dibuat di folder:
+./gradlew test
+
+
 Setelah test selesai, laporan otomatis dibuat di:
-` build/reports/tests/test/index.html `
 
-## Contoh Kasus Uji
+build/reports/tests/test/index.html
 
+Contoh Kasus Uji
+🔹 UI Test (SauceDemo Login)
 Feature: SauceDemo Login
 
   Scenario: Successful login with valid credentials
@@ -68,3 +83,12 @@ Feature: SauceDemo Login
     When username "standard_user" and password "" are entered
     And the login button is clicked
     Then an error message "Epic sadface: Password is required" should be displayed
+
+🔹 API Test (ReqRes API)
+Feature: User API Testing
+
+  Scenario: Get user list from API
+    Given the API endpoint is "https://reqres.in/api/users?page=2"
+    When a GET request is sent
+    Then the response status code should be 200
+    And the response should contain "Janet"
