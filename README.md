@@ -1,63 +1,58 @@
-Cucumber Selenium + API Gradle Framework
-Deskripsi
+# Cucumber Selenium + API Gradle Framework
+Framework ini digunakan untuk menguji aplikasi web (UI) dan API secara otomatis dengan pendekatan Behavior Driven Development (BDD) menggunakan Cucumber.
+Framework ini menggabungkan Selenium WebDriver untuk otomasi antarmuka pengguna dan RestAssured untuk pengujian layanan API, sehingga dapat digunakan sebagai solusi end-to-end testing dalam satu project.
+Struktur proyek dirancang dengan konsep Page Object Model (POM) pada pengujian UI untuk memisahkan logika halaman dari step definitions, sehingga kode menjadi lebih rapi, reusable, dan mudah dirawat.
+Untuk pengujian API, setiap skenario ditulis di file .feature terpisah yang mudah dibaca baik oleh developer maupun non-teknis.
+---
+## Tools & Framework
 
-Framework ini digunakan untuk menguji aplikasi web dan API secara otomatis menggunakan:
+- **Cucumber** – Behavior Driven Development (BDD)
+- **Selenium WebDriver** – Automasi UI
+- **RestAssured** – Automasi API
+- **Java & Gradle** – Bahasa dan build tool
+- **JUnit / TestNG** – Test runner
+- **WebDriverManager** – Manajemen driver otomatis
+- **Allure (opsional)** – Laporan uji interaktif
 
-Cucumber untuk BDD
+---
 
-Selenium WebDriver untuk uji UI
+## Fitur Utama
 
-RestAssured untuk uji API
+- ✅ Implementasi BDD dengan Cucumber
+- ✅ UI Automation berbasis Page Object Model (POM)
+- ✅ API Automation dengan skenario `.feature` terpisah
+- ✅ Mendukung eksekusi test via Gradle
+- ✅ Laporan otomatis dari Gradle / Cucumber (bisa dikombinasikan dengan Allure)
 
-Java & Gradle sebagai test runner
+---
 
-Struktur framework menerapkan Page Object Model (POM) untuk UI test, serta skenario API ditulis dalam file .feature terpisah.
+## 🛠️ Persiapan Project
 
-Fitur
+Pastikan hal berikut sudah terpasang:
 
-Implementasi BDD dengan Cucumber.
+- Java JDK **17+**
+- Gradle **8+** (atau gunakan `./gradlew`)
+- Browser **Google Chrome**
+- API Key untuk ReqRes:
+```x-api-key: reqres-free-v1```
 
-UI Automation dengan Selenium (contoh: SauceDemo login).
+## 📌 Cara Menjalankan Test
 
-API Automation dengan RestAssured (contoh: GET user list dari ReqRes API).
+1. **Clone repositori**
+   ```bash
+   git clone https://github.com/bryan-nathan-c/cucumber-selenium-gradle-framework.git
+   cd cucumber-selenium-gradle-framework
+2. Jalankan test:
+   ```./gradlew test```
 
-Struktur Page Object Model (POM) untuk UI.
+3. Lihat laporan hasil test:
+   ```build/reports/tests/test/index.html```
+---
 
-Mendukung JUnit dan Gradle untuk eksekusi test.
+## 📌 Contoh Test Cases
 
-Report otomatis dari Gradle / Cucumber (dapat dikombinasikan dengan Allure).
-
-Persiapan Project
-
-Pastikan Java JDK 17+ terinstall.
-
-Pastikan Gradle 8+ terinstall atau gunakan wrapper (./gradlew).
-
-Pastikan browser Chrome terinstall (WebDriver otomatis diatur oleh WebDriverManager).
-
-Untuk API test dengan ReqRes, gunakan API key gratis:
-
-x-api-key: reqres-free-v1
-
-Cara Menjalankan Test
-
-Clone repositori ke komputer Anda:
-
-git clone https://github.com/bryan-nathan-c/cucumber-selenium-gradle-framework.git
-cd cucumber-selenium-gradle-framework
-
-
-Jalankan test menggunakan Gradle:
-
-./gradlew test
-
-
-Setelah test selesai, laporan otomatis dibuat di:
-
-build/reports/tests/test/index.html
-
-Contoh Kasus Uji
-🔹 UI Test (SauceDemo Login)
+### 🔹 UI Test – SauceDemo Login
+```gherkin
 Feature: SauceDemo Login
 
   Scenario: Successful login with valid credentials
@@ -84,11 +79,15 @@ Feature: SauceDemo Login
     And the login button is clicked
     Then an error message "Epic sadface: Password is required" should be displayed
 
-🔹 API Test (ReqRes API)
+
+##🔹 API Test – ReqRes API
+
 Feature: User API Testing
 
-  Scenario: Get user list from API
-    Given the API endpoint is "https://reqres.in/api/users?page=2"
-    When a GET request is sent
-    Then the response status code should be 200
-    And the response should contain "Janet"
+Scenario: Get user list from API
+
+- Given the API endpoint is "https://reqres.in/api/users?page=2"
+- When a GET request is sent
+- Then the response status code should be 200
+- And the response should contain "Janet"
+
