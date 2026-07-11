@@ -20,7 +20,7 @@ public class ApiSteps {
     @When("I send a GET request")
     public void iSendAGETRequest() {
         response = given()
-                .header("x-api-key", "reqres-free-v1") // pakai API key
+                .header("x-api-key", "free_user_3GLDyOJ3CdMyas9UtedLopKVnkc") // pakai API key
                 .when()
                 .get(endpoint);
     }
